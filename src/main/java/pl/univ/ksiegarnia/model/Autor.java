@@ -12,9 +12,9 @@ import java.util.Set;
 public class Autor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-    private String Imie;
-    private String Nazwisko;
+    private Long id;
+    private String imie;
+    private String nazwisko;
 
     @ManyToMany(mappedBy = "autor")
     Set<Ksiazka> ksiazka = new HashSet<>();

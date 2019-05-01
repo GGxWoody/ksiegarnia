@@ -12,11 +12,11 @@ import java.util.Set;
 public class Adres {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-    private String Miasto;
-    private String Ulica;
-    private Integer Nr_Domu;
-    private Integer Nr_Mieszkania;
+    private Long id;
+    private String miasto;
+    private String ulica;
+    private Integer nr_Domu;
+    private Integer nr_Mieszkania;
 
     @ManyToMany(mappedBy = "adres")
     private Set<Klient> klients = new HashSet<>();

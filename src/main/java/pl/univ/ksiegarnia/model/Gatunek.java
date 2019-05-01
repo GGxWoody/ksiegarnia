@@ -12,9 +12,9 @@ public class Gatunek {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
-    private String Nazwa;
-    private String Opis;
+    private Long id;
+    private String nazwa;
+    private String opis;
 
     @OneToMany(mappedBy = "gatunek")
     private Set<Ksiazka> ksiazka = new HashSet<>();

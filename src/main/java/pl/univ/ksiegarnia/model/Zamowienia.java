@@ -11,7 +11,7 @@ import java.util.Set;
 public class Zamowienia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String Status;
 
     @ManyToMany(cascade = {CascadeType.ALL})
