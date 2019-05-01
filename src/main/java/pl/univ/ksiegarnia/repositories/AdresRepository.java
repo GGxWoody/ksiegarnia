@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface AdresRepository extends PagingAndSortingRepository<Adres,Long> {
     List<Adres> findByMiasto(String Miasto);
+    List<Adres> findByMiastoAndUlica(String Miasto,String ulica);
 }

@@ -15,8 +15,8 @@ public class Adres {
     private Long id;
     private String miasto;
     private String ulica;
-    private Integer nr_Domu;
-    private Integer nr_Mieszkania;
+    private Integer nrDomu;
+    private Integer nrMieszkania;
 
     @ManyToMany(mappedBy = "adres")
     private Set<Klient> klients = new HashSet<>();
