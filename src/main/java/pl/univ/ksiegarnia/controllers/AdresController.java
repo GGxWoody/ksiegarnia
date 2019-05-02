@@ -30,7 +30,7 @@ public class AdresController {
         Adres adres =
                 adresRepository
                         .findById(adresId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found on ::" + adresId));
+                        .orElseThrow(() -> new ResourceNotFoundException("Brak Adresu o ID ::" + adresId));
         return ResponseEntity.ok(adres);
     }
 
@@ -46,28 +46,33 @@ public class AdresController {
         Adres adresTemp =
                 adresRepository
                         .findById(adresId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found on ::" + adresId));
+                        .orElseThrow(() -> new ResourceNotFoundException("Brak Adresu o ID ::" + adresId));
 
-        adresTemp.setKlients(adres.getKlients());
-        adresTemp.setMiasto(adres.getMiasto());
-        adresTemp.setUlica(adres.getUlica());
-        adresTemp.setNrDomu(adres.getNrDomu());
-        adresTemp.setNrMieszkania(adres.getNrMieszkania());
+        if (!adres.getKlients().isEmpty()) adresTemp.setKlients(adres.getKlients());
+        if (adres.getMiasto() != null) adresTemp.setMiasto(adres.getMiasto());
+        if (adres.getUlica() != null) adresTemp.setUlica(adres.getUlica());
+        if (adres.getNrDomu() != null) adresTemp.setNrDomu(adres.getNrDomu());
+        if (adres.getNrMieszkania() != null) adresTemp.setNrMieszkania(adres.getNrMieszkania());
         final Adres updatedAdres = adresRepository.save(adresTemp);
         return ResponseEntity.ok(updatedAdres);
     }
 
     @DeleteMapping("/adreses/{id}")
-    public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long adresId) throws Exception {
+    public Map<String, Boolean> deleteAdres(@PathVariable(value = "id") Long adresId)
+            throws ResourceNotFoundException {
         Adres adres =
                 adresRepository
                         .findById(adresId)
-                        .orElseThrow(() -> new ResourceNotFoundException("User not found on ::" + adresId));
-
-        adresRepository.delete(adres);
-        Map<String,Boolean> response = new HashMap<>();
-        response.put("deleted",Boolean.TRUE);
-        return response;
+                        .orElseThrow(() -> new ResourceNotFoundException("Brak Adresu o ID ::" + adresId));
+        Map<String, Boolean> response = new HashMap<>();
+        if (adres.getKlients().isEmpty()) {
+            adresRepository.delete(adres);
+            response.put("deleted", Boolean.TRUE);
+            return response;
+        } else {
+            response.put("deleted", Boolean.FALSE);
+            return response;
+        }
     }
 
 }
