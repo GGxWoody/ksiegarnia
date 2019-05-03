@@ -12,17 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/autors")
 public class AutorController {
 
     @Autowired
     AutorRepository autorRepository;
 
-    @GetMapping("/autors")
+    @GetMapping
     public Iterable<Autor> getAllAutor() {
         return autorRepository.findAll();
     }
 
-    @GetMapping("/autors/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Autor> getAutorById(@PathVariable(value = "id") Long autorId)
             throws ResourceNotFoundException {
         Autor autor =
@@ -32,12 +33,12 @@ public class AutorController {
         return ResponseEntity.ok(autor);
     }
 
-    @PostMapping("/autors")
+    @PostMapping
     public Autor createAutor(@Valid @RequestBody Autor autor) {
         return autorRepository.save(autor);
     }
 
-    @PutMapping("/autors/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Autor> updateAutor(
             @PathVariable(value = "id") Long autorId, @Valid @RequestBody Autor autor)
             throws ResourceNotFoundException {
@@ -53,7 +54,7 @@ public class AutorController {
         return ResponseEntity.ok(updatedAutor);
     }
 
-    @DeleteMapping("/autors/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteAutor(@PathVariable(value = "id") Long autorId)
             throws ResourceNotFoundException {
         Autor autor =

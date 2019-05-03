@@ -12,17 +12,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/gatuneks")
 public class GatunekController {
 
     @Autowired
     private GatunekRepository gatunekRepository;
 
-    @GetMapping("/gatuneks")
+    @GetMapping
     public Iterable<Gatunek> getAllGatunek() {
         return gatunekRepository.findAll();
     }
 
-    @GetMapping("/gatuneks/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Gatunek> getGatunekById(@PathVariable(value = "id") Long gatunekId)
             throws ResourceNotFoundException {
         Gatunek gatunek =
@@ -32,12 +33,12 @@ public class GatunekController {
         return ResponseEntity.ok(gatunek);
     }
 
-    @PostMapping("/gatuneks")
+    @PostMapping
     public Gatunek createGatunek(@Valid @RequestBody Gatunek gatunek) {
         return gatunekRepository.save(gatunek);
     }
 
-    @PutMapping("/gatuneks/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Gatunek> updateGatunek(
             @PathVariable(value = "id") Long gatunekId, @Valid @RequestBody Gatunek gatunek)
             throws ResourceNotFoundException {
@@ -52,7 +53,7 @@ public class GatunekController {
         return ResponseEntity.ok(updatedGatunek);
     }
 
-    @DeleteMapping("/gatuneks/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteGatunek(@PathVariable(value = "id") Long gatunekId)
         throws ResourceNotFoundException{
         Gatunek gatunek =

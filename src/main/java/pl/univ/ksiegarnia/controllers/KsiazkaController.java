@@ -12,16 +12,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/ksiazkas")
 public class KsiazkaController {
     @Autowired
     private KsiazkaRepository ksiazkaRepository;
 
-    @GetMapping("/ksiazkas")
+    @GetMapping
     public Iterable<Ksiazka> getAllKsiazka() {
         return ksiazkaRepository.findAll();
     }
 
-    @GetMapping("/ksiazkas/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Ksiazka> getKsiazkaById(@PathVariable(value = "id") Long ksiazkaId)
             throws ResourceNotFoundException {
         Ksiazka ksiazka =
@@ -31,12 +32,12 @@ public class KsiazkaController {
         return ResponseEntity.ok(ksiazka);
     }
 
-    @PostMapping("/ksiazkas")
+    @PostMapping
     public Ksiazka createKsiazka(@Valid @RequestBody Ksiazka ksiazka) {
         return ksiazkaRepository.save(ksiazka);
     }
 
-    @PutMapping("/ksiazkas/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Ksiazka> updateKsiazka(
             @PathVariable(value = "id") Long ksiazkaId, @Valid @RequestBody Ksiazka ksiazka)
             throws ResourceNotFoundException {
@@ -52,7 +53,7 @@ public class KsiazkaController {
         return ResponseEntity.ok(updatedKsiazka);
     }
 
-    @DeleteMapping("/ksiazkas/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteKsiazka(@PathVariable(value = "id") Long ksiazkaId)
             throws ResourceNotFoundException {
         Ksiazka ksiazka =

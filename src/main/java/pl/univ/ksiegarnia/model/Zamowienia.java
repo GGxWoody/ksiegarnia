@@ -1,5 +1,6 @@
 package pl.univ.ksiegarnia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Zamowienia {
     private String Status;
 
     @ManyToMany(cascade = {CascadeType.ALL})
+    @JsonIgnore
     @JoinTable(
             name = "Zamowienia_Ksiazka",
             joinColumns = {@JoinColumn(name = "ID_Zamowienia")},
@@ -23,6 +25,7 @@ public class Zamowienia {
     private Set<Ksiazka> ksiazka = new HashSet<>();
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "ID_Klient")
     private Klient klient;
 }

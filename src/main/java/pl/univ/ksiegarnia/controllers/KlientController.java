@@ -14,17 +14,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/klients")
 public class KlientController {
 
     @Autowired
     private KlientRepository klientRepository;
 
-    @GetMapping("/klients")
+    @GetMapping
     public Iterable<Klient> getAllKlient() {
         return klientRepository.findAll();
     }
 
-    @GetMapping("/klients/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Klient> getKlientById(@PathVariable(value = "id") Long klientId)
             throws ResourceNotFoundException {
         Klient klient =
@@ -34,12 +35,12 @@ public class KlientController {
         return ResponseEntity.ok(klient);
     }
 
-    @PostMapping("/klients")
+    @PostMapping
     public Klient createKlient(@Valid @RequestBody Klient klient) {
         return klientRepository.save(klient);
     }
 
-    @PutMapping("/klients/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Klient> updateKlient(
             @PathVariable(value = "id") Long klientId, @Valid @RequestBody Klient klient)
             throws ResourceNotFoundException {
@@ -55,7 +56,7 @@ public class KlientController {
         return ResponseEntity.ok(updatedKlient);
     }
 
-    @DeleteMapping("/klients/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteKlient(@PathVariable(value = "id") Long klientId)
             throws ResourceNotFoundException {
         Klient klient =

@@ -1,5 +1,6 @@
 package pl.univ.ksiegarnia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,5 +18,6 @@ public class Gatunek {
     private String opis;
 
     @OneToMany(mappedBy = "gatunek")
+    @JsonIgnore
     private Set<Ksiazka> ksiazka = new HashSet<>();
 }

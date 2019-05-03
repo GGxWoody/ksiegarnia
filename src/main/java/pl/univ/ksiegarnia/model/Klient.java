@@ -1,6 +1,7 @@
 package pl.univ.ksiegarnia.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,14 +17,16 @@ public class Klient {
     private String imie;
     private String nazwisko;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
+    @ManyToMany
     @JoinTable(
-            name = "Klient_Adres",
-            joinColumns = {@JoinColumn(name ="ID_Klient")},
-            inverseJoinColumns = {@JoinColumn(name = "ID_Adres")}
+            name = "klient_adres",
+            joinColumns = @JoinColumn(name ="id_klient", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_adres",referencedColumnName = "id")
     )
+    @JsonIgnore
     private Set<Adres> adres = new HashSet<>();
 
     @OneToMany(mappedBy = "klient")
+    @JsonIgnore
     private Set<Zamowienia> zamowienia = new HashSet<>();
 }

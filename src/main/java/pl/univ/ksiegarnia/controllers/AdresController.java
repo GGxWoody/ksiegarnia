@@ -14,17 +14,18 @@ import java.util.Map;
 
 
 @RestController
+@RequestMapping("/adreses")
 public class AdresController {
 
     @Autowired
     private AdresRepository adresRepository;
 
-    @GetMapping("/adreses")
+    @GetMapping
     public Iterable<Adres> getAllAdresy() {
         return adresRepository.findAll();
     }
 
-    @GetMapping("/adreses/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Adres> getAdresById(@PathVariable(value = "id") Long adresId)
             throws ResourceNotFoundException {
         Adres adres =
@@ -34,12 +35,12 @@ public class AdresController {
         return ResponseEntity.ok(adres);
     }
 
-    @PostMapping("/adreses")
+    @PostMapping
     public Adres createAdres(@Valid @RequestBody Adres adres) {
         return adresRepository.save(adres);
     }
 
-    @PutMapping("/adreses/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Adres> updateAdres(
             @PathVariable(value = "id") Long adresId, @Valid @RequestBody Adres adres)
             throws ResourceNotFoundException {
@@ -57,7 +58,7 @@ public class AdresController {
         return ResponseEntity.ok(updatedAdres);
     }
 
-    @DeleteMapping("/adreses/{id}")
+    @DeleteMapping("/{id}")
     public Map<String, Boolean> deleteAdres(@PathVariable(value = "id") Long adresId)
             throws ResourceNotFoundException {
         Adres adres =

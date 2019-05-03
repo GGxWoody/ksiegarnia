@@ -1,6 +1,7 @@
 package pl.univ.ksiegarnia.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,13 @@ public class Adres {
     private Integer nrDomu;
     private Integer nrMieszkania;
 
-    @ManyToMany(mappedBy = "adres")
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "klient_adres",
+            joinColumns = @JoinColumn(name ="id_adres", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_klient",referencedColumnName = "id")
+    )
+    @JsonIgnore
     private Set<Klient> klients = new HashSet<>();
 }
